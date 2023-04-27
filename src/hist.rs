@@ -6,10 +6,7 @@ use crate::{
 };
 use std::vec::Vec;
 
-/// Implementation of streaming histograms as described in the
-/// [*A Streaming Parallel Decision Tree Algorithm* by Ben-Haim and Tom-Tov (2010)][paper].
-///
-/// [paper]: https://jmlr.csail.mit.edu/papers/v11/ben-haim10a.html
+/// Streaming histogram.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct StreamHist {
     /// Sorted [`Bin`]s of the histogram.
@@ -83,6 +80,10 @@ impl StreamHist {
     ///
     /// The "update" procedure that it uses is described by Ben-Haim and Tom-Tov (2010).
     ///
+    /// # Panics
+    ///
+    /// The `value` needs to be a number. It will panic on `f64::NAN`, `f64::INFINITY`, or `f64::NEG_INFINITY`.
+    ///
     /// # Examples
     ///
     /// ```
@@ -154,6 +155,10 @@ impl StreamHist {
     }
 
     /// Find index such that all the bins before it are smaller or equal than the `value`.
+    ///
+    /// # Panics
+    ///
+    /// It panics when `value` is `f64::NAN`.
     #[inline]
     pub(crate) fn partition_point(&self, value: f64) -> usize {
         assert!(!value.is_nan(), "{value} is not a number");
@@ -258,6 +263,11 @@ impl StreamHist {
 }
 
 impl From<Vec<f64>> for StreamHist {
+    /// Initialize histogram from a vector of values.
+    ///
+    /// # Panics
+    ///
+    /// All the `values` need to be a numbers. It will panic on any `f64::NAN`, `f64::INFINITY`, or `f64::NEG_INFINITY`.
     fn from(values: Vec<f64>) -> Self {
         if values.is_empty() {
             return StreamHist::default();
@@ -344,25 +354,25 @@ mod tests {
     #[test]
     fn partition_point() {
         let hist = StreamHist::with_capacity(3);
-        assert_eq!(&hist.partition_point(0.0), &0);
-        assert_eq!(&hist.partition_point(10.0), &0);
+        assert_eq!(hist.partition_point(0.0), 0);
+        assert_eq!(hist.partition_point(10.0), 0);
 
         let hist = StreamHist::from(vec![1.0, 2.0, 3.0]);
-        assert_eq!(&hist.partition_point(0.0), &0);
-        assert_eq!(&hist.partition_point(1.0), &0);
-        assert_eq!(&hist.partition_point(1.5), &1);
-        assert_eq!(&hist.partition_point(2.0), &1);
-        assert_eq!(&hist.partition_point(3.0), &2);
-        assert_eq!(&hist.partition_point(3.1), &3);
-        assert_eq!(&hist.partition_point(4.0), &3);
+        assert_eq!(hist.partition_point(0.0), 0);
+        assert_eq!(hist.partition_point(1.0), 0);
+        assert_eq!(hist.partition_point(1.5), 1);
+        assert_eq!(hist.partition_point(2.0), 1);
+        assert_eq!(hist.partition_point(3.0), 2);
+        assert_eq!(hist.partition_point(3.1), 3);
+        assert_eq!(hist.partition_point(4.0), 3);
 
-        assert_eq!(&hist.partition_point(f64::NEG_INFINITY), &0);
-        assert_eq!(&hist.partition_point(f64::INFINITY), &3);
+        assert_eq!(hist.partition_point(f64::NEG_INFINITY), 0);
+        assert_eq!(hist.partition_point(f64::INFINITY), 3);
     }
 
     #[test_case(f64::NAN ; "NaN")]
     #[test_case(f64::INFINITY ; "infinity")]
-    #[test_case(f64::INFINITY ; "negative infinity")]
+    #[test_case(f64::NEG_INFINITY ; "negative infinity")]
     #[should_panic]
     fn insert_invalid(value: f64) {
         StreamHist::default().insert(value);
@@ -559,6 +569,14 @@ mod tests {
                 size: 5,
             }
         );
+    }
+
+    #[test_case(vec![f64::NAN] ; "NaN")]
+    #[test_case(vec![f64::INFINITY] ; "infinity")]
+    #[test_case(vec![f64::NEG_INFINITY] ; "negative infinity")]
+    #[should_panic]
+    fn from_vec_invalid(values: Vec<f64>) {
+        let _ = StreamHist::from(values);
     }
 
     #[test]

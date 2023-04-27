@@ -77,12 +77,24 @@ empirical cumulative distribution functions of kernel density estimators from th
 
 ```rust
 use streamhist::StreamHist;
+use streamhist::KernelDensity;
 
+// initialize a histogram with 10 bins
 let mut hist = StreamHist::with_capacity(10);
+// add some values to it
 hist.insert(1.13);
 hist.insert(2.67);
 // ...
+
+// calculate statistics
 println!("Mean = {}", hist.mean());
+
+// convert it to a kernel density estimator
+let kde = KernelDensity::from(hist.clone());
+println!("f({}) = {}", 3.14, kde.density(3.14));
+
+// print the histogram as a JSON
+println!("{}", hist.to_json());
 ```
 
 ## Other implementations

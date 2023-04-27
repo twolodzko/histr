@@ -5,7 +5,7 @@ edition = "2021"
 authors = ["Tymoteusz Wolodzko"]
 description = "Implementation of streaming histograms as described in the A Streaming Parallel Decision Tree Algorithm paper by Ben-Haim and Tom-Tov (2010)."
 repository = "https://github.com/twolodzko/streamhist"
-exclude = ["/examples"]
+exclude = ["/data"]
 license = "MIT"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -20,6 +20,7 @@ serde_json = "1.0"
 [dev-dependencies]
 test-case = "3.1.0"
 tempdir = "0.3.7"
+approx = "0.5.1"
 
 [profile.optimized]
 # see: https://doc.rust-lang.org/rustc/codegen-options/index.html

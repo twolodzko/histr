@@ -35,6 +35,12 @@ impl PartialEq for ParsingError {
 /// # Arguments
 /// * `line` - String input to be parser
 /// * `index` - Index of the field in `line`, where the fields are whitespace separated
+///
+/// # Errors
+///
+/// It will throw error in two cases:
+/// * It was not able to parse the string as a `f64` number.
+/// * The parsed value is `f64::NAN` or infinite.
 pub fn parse(line: String, index: usize) -> Result<f64, ParsingError> {
     if let Some(field) = line.split_whitespace().nth(index) {
         match field.parse::<f64>() {

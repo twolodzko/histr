@@ -64,9 +64,11 @@ impl StreamHist {
 
     /// Approximate count of the number of values since the `value`.
     ///
-    /// If `value` is a `f64::NAN`, the NaN value will be returned.
-    ///
     /// It uses the "sum" procedure described by Ben-Haim and Tom-Tov (2010).
+    ///
+    /// # NaN propagation
+    ///
+    /// If `value` is `f64::NAN`, it will return `f64::NAN`.
     pub fn count_by(&self, value: f64) -> f64 {
         if value.is_nan() {
             return f64::NAN;
@@ -99,6 +101,10 @@ impl StreamHist {
     ///
     /// The result of [`StreamHist::count_by`] divided by the total [`StreamHist::count`].
     ///
+    /// # NaN propagation
+    ///
+    /// If `value` is `f64::NAN`, it will return `f64::NAN`.
+    ///
     /// # Examples
     ///
     /// ```
@@ -113,9 +119,14 @@ impl StreamHist {
 
     /// Approximate sample quantile of the data for a given probability `prob`.
     ///
-    /// The `prob` argument needs to be between 0.0 and 1.0, otherwise it will panic.
-    ///
     /// It uses the "uniform" procedure described by Ben-Haim and Tom-Tov (2010).
+    ///
+    /// It will return `f64::NAN` for an empty histogram.
+    ///
+    /// # Panics
+    ///
+    /// `prob` needs to be a probability value between `0.0` and `1.0` (inclusive),
+    /// otherwise it panics.
     ///
     /// # Examples
     ///
@@ -300,7 +311,7 @@ mod tests {
 
     #[test_case(f64::NAN ; "NaN")]
     #[test_case(f64::INFINITY ; "infinity")]
-    #[test_case(f64::INFINITY ; "negative infinity")]
+    #[test_case(f64::NEG_INFINITY ; "negative infinity")]
     #[test_case(-1.0 ; "negative")]
     #[test_case(2.0 ; "too large")]
     #[should_panic]
@@ -383,5 +394,45 @@ mod tests {
             .variance(),
             40.0
         );
+    }
+
+    #[test]
+    fn vs_histk_results() {
+        // Integration test:
+        // * Use the data from https://github.com/aaw/histk/
+        // * Create the histogram with 64 bins (their default)
+        // * Compare the result to theirs
+
+        use approx::assert_relative_eq;
+        use std::fs;
+
+        let data: Vec<f64> = fs::read_to_string("./data/ping_data")
+            .expect("failed to open the data file")
+            .split("\n")
+            .map(|s| s.trim().parse::<f64>().expect("parsing error"))
+            .collect();
+        assert_eq!(data.len(), 50_001);
+
+        let mut hist = StreamHist::with_capacity(64);
+        for value in data.iter() {
+            hist.insert(*value);
+        }
+
+        assert_eq!(hist.bins.len(), 64);
+        assert_eq!(hist.count(), data.len() as f64);
+
+        assert_relative_eq!(hist.quantile(0.0001), 88.85453065363578);
+        assert_relative_eq!(hist.quantile(0.001), 88.9724410677868);
+        assert_relative_eq!(hist.quantile(0.01), 89.3453065363578);
+        assert_relative_eq!(hist.quantile(0.05), 90.01934248387099);
+        assert_relative_eq!(hist.quantile(0.1), 90.52441067786806);
+        assert_relative_eq!(hist.quantile(0.25), 91.66069646736628);
+        assert_relative_eq!(hist.quantile(0.5), 94.77773954944752);
+        assert_relative_eq!(hist.quantile(0.75), 97.92153979296629);
+        assert_relative_eq!(hist.quantile(0.9), 101.40473517175185);
+        assert_relative_eq!(hist.quantile(0.95), 103.2945520079058);
+        assert_relative_eq!(hist.quantile(0.99), 110.23355783785534);
+        assert_relative_eq!(hist.quantile(0.999), 455.4970000000103);
+        assert_relative_eq!(hist.quantile(0.9999), 735.9928000001819);
     }
 }

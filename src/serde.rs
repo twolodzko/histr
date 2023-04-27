@@ -94,14 +94,18 @@ impl StreamHist {
     /// use tempdir::TempDir;
     /// use streamhist::StreamHist;
     ///
+    /// // initialize a temporary directory
     /// let temp_dir = TempDir::new("example").unwrap();
     /// let file_path = temp_dir.path().join("hist.msgpack");
+    /// // create a file in it
     /// let file_to_write = &mut File::create(file_path.clone()).unwrap();
-    /// let orig_hist = StreamHist::from(vec![2.0, 5.0, 1.0, 3.0, 4.0, 1.0, 2.5]);
     ///
+    /// let orig_hist = StreamHist::from(vec![2.0, 5.0, 1.0, 3.0, 4.0, 1.0, 2.5]);
+    /// // write the histogram to the file
     /// orig_hist.write_msgpack(file_to_write)
     ///     .expect("failed writing the file");
     ///
+    /// // open the file again and read from it
     /// let file_to_read = &mut File::open(file_path).unwrap();
     /// let read_hist = StreamHist::read_msgpack(file_to_read).expect("failed reading the file");
     ///

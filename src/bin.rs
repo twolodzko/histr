@@ -8,7 +8,7 @@ use std::ops;
 /// Bins support the `+` operation for merging them.
 #[derive(Debug, Clone, Copy, Default, Deserialize, Serialize)]
 pub struct Bin {
-    /// Mean (value) of the bin.
+    /// Mean (value) of the bin. It needs to be a number (not `f64::NAN`, `f64::INFINITY`, or `f64::NEG_INFINITY`).
     pub(crate) mean: f64,
     /// The count of how many samples were aggregated to create the bin.
     pub(crate) count: u64,
@@ -16,6 +16,10 @@ pub struct Bin {
 
 impl Bin {
     /// Initialize new `Bin`.
+    ///
+    /// # Panics
+    ///
+    /// The `mean` needs to be a number. It will panic on `f64::NAN`, `f64::INFINITY`, or `f64::NEG_INFINITY`.
     ///
     /// # Examples
     ///
@@ -37,6 +41,10 @@ impl Bin {
 impl From<f64> for Bin {
     /// Initialize a `Bin` from a value with the count equal to one.
     ///
+    /// # Panics
+    ///
+    /// The `mean` needs to be a number. It will panic on `f64::NAN`, `f64::INFINITY`, or `f64::NEG_INFINITY`.
+    ///
     /// # Examples
     ///
     /// ```
@@ -47,8 +55,8 @@ impl From<f64> for Bin {
     /// assert_eq!(mean, 3.14);
     /// assert_eq!(count, 1);
     /// ```
-    fn from(value: f64) -> Self {
-        Bin::new(value, 1)
+    fn from(mean: f64) -> Self {
+        Bin::new(mean, 1)
     }
 }
 
@@ -159,7 +167,7 @@ mod tests {
 
     #[test_case(f64::NAN ; "NaN")]
     #[test_case(f64::INFINITY ; "infinity")]
-    #[test_case(f64::INFINITY ; "negative infinity")]
+    #[test_case(f64::NEG_INFINITY ; "negative infinity")]
     #[should_panic]
     fn new_invalid(value: f64) {
         let _ = Bin::new(value, 1);
@@ -167,7 +175,7 @@ mod tests {
 
     #[test_case(f64::NAN ; "NaN")]
     #[test_case(f64::INFINITY ; "infinity")]
-    #[test_case(f64::INFINITY ; "negative infinity")]
+    #[test_case(f64::NEG_INFINITY ; "negative infinity")]
     #[should_panic]
     fn from_invalid(value: f64) {
         let _ = Bin::from(value);

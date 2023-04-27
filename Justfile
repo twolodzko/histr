@@ -57,13 +57,13 @@ examples: build
 	ls -la | awk 'NR>1 {print $5}' | ./{{binary}} -b 5 -j -n
 
 	# Estimate histogram from tabular data and display it together with the summary statistics
-	cat examples/old_faithful.tsv | cut -f1 | tail -n +2 | ./{{binary}} -s -b 15 -w 20
+	cat data/old_faithful.tsv | cut -f1 | tail -n +2 | ./{{binary}} -s -b 15 -w 20
 
 	# As above, but log-transform the values using awk
-	cat examples/old_faithful.tsv | awk 'NR>1 {print log($1)}' | ./{{binary}} -s -b 15 -w 20
+	cat data/old_faithful.tsv | awk 'NR>1 {print log($1)}' | ./{{binary}} -s -b 15 -w 20
 
 	# Save the histogram to a file
-	cat examples/old_faithful.tsv | tail -n +2 | ./{{binary}} -f 1 -b 15 -o $tempdir/hist.msgpack
+	cat data/old_faithful.tsv | tail -n +2 | ./{{binary}} -f 1 -b 15 -o $tempdir/hist.msgpack
 
 	# Read and resize the saved histogram
 	./{{binary}} -ir -b 10 -l $tempdir/hist.msgpack

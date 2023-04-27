@@ -13,6 +13,10 @@ pub struct KernelDensity {
 impl KernelDensity {
     /// Evaluate weighted kernel density estimator at the `value`.
     ///
+    /// # NaN propagation
+    ///
+    /// If `value` is `f64::NAN`, it will return `f64::NAN`.
+    ///
     /// # Examples
     ///
     /// ```
@@ -39,6 +43,9 @@ impl KernelDensity {
 }
 
 impl From<StreamHist> for KernelDensity {
+    /// Initialize kernel density estimator from the streaming histogram.
+    ///
+    /// The `bandwidth` is picked automatically using the [`bandwidth::auto`] rule of thumb.
     fn from(hist: StreamHist) -> Self {
         let bandwidth = bandwidth::auto(&hist);
         KernelDensity { hist, bandwidth }
@@ -101,10 +108,21 @@ pub mod bandwidth {
     //! // the probability density is smaller for unseen vs seen values
     //! assert!(kde.density(0.0) < kde.density(3.5));
     //! ```
+    //!
+    //! # References
+    //!
+    //! Bura, E., Zhmurov, A., and Barsegov, V. (2009).
+    //! [*Nonparametric density estimation and optimal bandwidth selection for protein unfolding and unbinding data*.](
+    //! https://pubs.aip.org/aip/jcp/article/130/1/015102/902814/Nonparametric-density-estimation-and-optimal)
+    //! J. Chem. Phys. 130(1)
+    //!
+    //! Turlach, B.A. (1999).
+    //! [*Bandwidth Selection in Kernel Density Estimation: A Review*.](
+    //! https://www.researchgate.net/publication/2316108_Bandwidth_Selection_in_Kernel_Density_Estimation_A_Review)
 
     use crate::hist::StreamHist;
 
-    /// Maximum of the `sturges` and `fd` bandwidth selection rules of thumb (as in Numpy).
+    /// Maximum of the [`sturges`] and [`fd`] bandwidth selection rules of thumb (as in Numpy).
     pub fn auto(hist: &StreamHist) -> f64 {
         sturges(hist).max(fd(hist))
     }
