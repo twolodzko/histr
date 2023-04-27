@@ -1,6 +1,6 @@
 extern crate serde;
 
-use crate::bin::Bin;
+use crate::bins::Bin;
 use crate::hist::StreamHist;
 use serde::{Deserialize, Serialize};
 use std::error::Error;
@@ -102,8 +102,7 @@ impl StreamHist {
     ///
     /// let orig_hist = StreamHist::from(vec![2.0, 5.0, 1.0, 3.0, 4.0, 1.0, 2.5]);
     /// // write the histogram to the file
-    /// orig_hist.write_msgpack(file_to_write)
-    ///     .expect("failed writing the file");
+    /// orig_hist.write_msgpack(file_to_write).expect("failed writing to the file");
     ///
     /// // open the file again and read from it
     /// let file_to_read = &mut File::open(file_path).unwrap();
@@ -163,7 +162,7 @@ impl From<&StreamHist> for HistJson {
 #[cfg(test)]
 mod tests {
     extern crate tempdir;
-    use crate::bin::Bin;
+    use crate::bins::Bin;
     use crate::hist::StreamHist;
     use std::fs::File;
     use tempdir::TempDir;

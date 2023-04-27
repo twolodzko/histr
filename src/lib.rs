@@ -27,14 +27,14 @@
 //! println!("{}", hist.to_json());
 //! ```
 
-mod bin;
+mod bins;
 mod density;
 mod fast;
 mod hist;
 mod serde;
 mod stats;
 
-pub use self::bin::Bin;
+pub use self::bins::Bin;
 pub use self::density::{bandwidth, KernelDensity};
 pub use self::hist::StreamHist;
 

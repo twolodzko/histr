@@ -11,11 +11,12 @@ license = "MIT"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-clap = { version = "4.2.4", features = ["derive"] }
-float-pretty-print = "0.1.1"
 rmp-serde = "1.1.1"
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
+
+clap = { version = "4.2.4", features = ["derive"], optional = true }
+float-pretty-print = { version = "0.1.1", optional = true }
 
 [dev-dependencies]
 test-case = "3.1.0"
@@ -27,3 +28,14 @@ approx = "0.5.1"
 inherits = "release"
 strip = "symbols"
 lto = true
+
+[lib]
+name = "streamhist"
+
+[features]
+build-binary = ["dep:clap", "dep:float-pretty-print"]
+
+[[bin]]
+# see: https://stackoverflow.com/a/46017284/3986320
+name = "streamhist"
+required-features = ["build-binary"]

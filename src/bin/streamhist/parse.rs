@@ -1,3 +1,5 @@
+#![cfg(feature = "build-binary")]
+
 use std::fmt;
 
 #[derive(Debug, Clone)]

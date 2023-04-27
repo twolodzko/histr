@@ -1,3 +1,4 @@
+#![cfg(feature = "build-binary")]
 mod parse;
 
 use crate::parse::parse;
@@ -68,10 +69,10 @@ fn initialize_histogram(args: &Args) -> Result<StreamHist, Box<dyn Error>> {
 
 /// Read histogram from a file:
 /// * when the file extension is .json (case-insensitive) as a JSON,
-/// * otherwise as a MessagePack.
-fn read_histogram(path: &String) -> Result<StreamHist, Box<dyn Error>> {
+/// * otherwise treat it as a MessagePack file.
+fn read_histogram(path: &str) -> Result<StreamHist, Box<dyn Error>> {
     let file = File::open(path).map_err(Box::new)?;
-    if path.to_lowercase().ends_with("json") {
+    if is_json(path) {
         StreamHist::read_json(file)
     } else {
         StreamHist::read_msgpack(file)
@@ -98,13 +99,17 @@ fn read_data(hist: &mut StreamHist, args: &Args) -> io::Result<()> {
 /// Write the histogram to a file:
 /// * when the file extension is .json (case-insensitive) as a JSON,
 /// * otherwise as a MessagePack.
-fn write(hist: &StreamHist, path: String) -> Result<(), Box<dyn Error>> {
-    let file = &mut File::create(path.clone()).map_err(Box::new)?;
-    if path.to_lowercase().ends_with("json") {
+fn write(hist: &StreamHist, path: &str) -> Result<(), Box<dyn Error>> {
+    let file = &mut File::create(path).map_err(Box::new)?;
+    if is_json(path) {
         hist.write_json(file)
     } else {
         hist.write_msgpack(file)
     }
+}
+
+fn is_json(path: &str) -> bool {
+    path.to_lowercase().ends_with(".json")
 }
 
 /// Print JSON for the histogram.
@@ -113,7 +118,7 @@ fn print_json(hist: &StreamHist) -> Result<(), Box<dyn Error>> {
     hist.write_json(stdout)
 }
 
-/// Print the bin mean, count, and histogram bar (if requested).
+/// Format the bin mean, count, and histogram bar as a string.
 fn bin_to_string(bin: &Bin, max_count: u64, width: u32) -> String {
     let (mean, count) = bin.into();
     debug_assert!(count <= max_count);
@@ -180,9 +185,6 @@ fn main() {
         .unwrap();
 
     if args.force_resize {
-        // Do a forced resize
-        // * if the histogram was larger than the new size, downsize it by merging some of the bins
-        // * if it was smaller, allocate more space for new bins
         hist.resize(args.number_of_bins);
     }
 
@@ -208,7 +210,7 @@ fn main() {
     }
 
     if let Some(path) = args.output_file {
-        if let Err(err) = write(&hist, path) {
+        if let Err(err) = write(&hist, &path) {
             eprintln!("failed to write the output: {}", err);
             std::process::exit(IO_ERROR_CODE);
         }

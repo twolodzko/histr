@@ -1,4 +1,4 @@
-use crate::bin::{sum_counts, Bin};
+use crate::bins::{sum_counts, Bin};
 use crate::hist::StreamHist;
 
 impl StreamHist {
@@ -222,7 +222,7 @@ impl StreamHist {
 
 #[cfg(test)]
 mod tests {
-    use crate::bin::Bin;
+    use crate::bins::Bin;
     use crate::hist::StreamHist;
     use test_case::test_case;
 

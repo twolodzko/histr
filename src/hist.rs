@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 
 use crate::{
-    bin::{sum_counts, Bin},
+    bins::{sum_counts, Bin},
     is_sorted,
 };
 use std::vec::Vec;
@@ -342,7 +342,7 @@ fn nan_or_eq(a: f64, b: f64) -> bool {
 #[cfg(test)]
 mod tests {
     use super::StreamHist;
-    use crate::bin::Bin;
+    use crate::bins::Bin;
     use test_case::test_case;
 
     #[test]
