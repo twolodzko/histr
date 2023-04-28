@@ -26,8 +26,8 @@ impl StreamHist {
     /// # Examples
     ///
     /// ```
-    /// use streamhist::StreamHist;
-    /// use streamhist::Bin;
+    /// use histr::StreamHist;
+    /// use histr::Bin;
     ///
     /// assert_eq!(
     ///     StreamHist::from_json(
@@ -51,7 +51,7 @@ impl StreamHist {
     /// # Examples
     ///
     /// ```
-    /// use streamhist::StreamHist;
+    /// use histr::StreamHist;
     ///
     /// let hist = StreamHist::default();
     /// assert_eq!(hist.to_json(), r#"{"means":[],"counts":[],"min":null,"max":null}"#);
@@ -92,7 +92,7 @@ impl StreamHist {
     /// extern crate tempdir;
     /// use std::fs::File;
     /// use tempdir::TempDir;
-    /// use streamhist::StreamHist;
+    /// use histr::StreamHist;
     ///
     /// // initialize a temporary directory
     /// let temp_dir = TempDir::new("example").unwrap();

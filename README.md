@@ -44,11 +44,11 @@ and the width of the bins in the histogram.
 ## Command line interface
 
 For example, the following command pipes the tab-separated file (ignoring the first line which is the header with
-`tail -n +2`) to `streamhist`. The histogram is saved to a file (`-o hist.msgpack`) and printed. The saved histogram
+`tail -n +2`) to `histr`. The histogram is saved to a file (`-o hist.msgpack`) and printed. The saved histogram
 could then be read again (with `-l hist.msgpack`) and be updated with new data.
 
 ```shell
-$ tail -n +2 examples/old_faithful.tsv | streamhist -o hist.msgpack
+$ tail -n +2 examples/old_faithful.tsv | histr -o hist.msgpack
 mean    count
 1.855946 56 ■■■■■■■■■■
 2.162333 27 ■■■■■
@@ -62,22 +62,22 @@ mean    count
 4.919000 14 ■■■
 ```
 
-Instead of piping, the file could be passed directly as `streamhist examples/old_faithful.tsv`, but then we would see
+Instead of piping, the file could be passed directly as `histr examples/old_faithful.tsv`, but then we would see
 a warning printed to the standard error saying that parsing the first line (column name) failed.
 
-More details can be found in `streamhist -h` and some usage examples can be executed using the [Justfile] in this
+More details can be found in `histr -h` and some usage examples can be executed using the [Justfile] in this
 repository with `just examples`.
 
 ## Library
 
-Streamhist is also available as a Rust crate. It supports creating histograms from data or building them on-the-fly
+Histr is also available as a Rust crate. It supports creating histograms from data or building them on-the-fly
 in a streaming manner. The histograms can be resized and merged with other histograms. The crate exposes methods for
 calculating the basic statistics (mean, standard deviation, median, quantiles) from the histograms and calculating
 empirical cumulative distribution functions of kernel density estimators from them. 
 
 ```rust
-use streamhist::StreamHist;
-use streamhist::KernelDensity;
+use histr::StreamHist;
+use histr::KernelDensity;
 
 // initialize a histogram with 10 bins
 let mut hist = StreamHist::with_capacity(10);

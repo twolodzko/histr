@@ -1,5 +1,5 @@
 
-binary-file := "streamhist"
+binary-file := "histr"
 flags := "--features build-binary"
 
 # Run linter and all the tests
@@ -24,12 +24,12 @@ lib:
 
 # Build the command line application
 binary:
-	cargo build --release --bin streamhist {{flags}}
-	cp ./target/release/streamhist {{binary-file}}
+	cargo build --release --bin histr {{flags}}
+	cp ./target/release/histr {{binary-file}}
 
 # Install the package locally
 install:
-	cargo install --bin streamhist {{flags}} --path .
+	cargo install --bin histr {{flags}} --path .
 
 # Build the docs
 docs:

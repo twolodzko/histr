@@ -20,8 +20,8 @@ impl KernelDensity {
     /// # Examples
     ///
     /// ```
-    /// use streamhist::StreamHist;
-    /// use streamhist::KernelDensity;
+    /// use histr::StreamHist;
+    /// use histr::KernelDensity;
     ///
     /// let mut hist = StreamHist::from(vec![1.0, 0.5, 1.0, 3.5, 2.0, 3.0, 4.0, 2.5]);
     /// hist.resize(5);
@@ -94,9 +94,9 @@ pub mod bandwidth {
     //! # Examples
     //!
     //! ```
-    //! use streamhist::StreamHist;
-    //! use streamhist::KernelDensity;
-    //! use streamhist::bandwidth::bin_width;
+    //! use histr::StreamHist;
+    //! use histr::KernelDensity;
+    //! use histr::bandwidth::bin_width;
     //!
     //! let mut hist = StreamHist::from(vec![1.0, 0.5, 1.0, 3.5, 2.0, 3.0, 4.0, 2.5]);
     //! hist.resize(5);

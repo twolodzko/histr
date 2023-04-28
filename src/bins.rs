@@ -24,7 +24,7 @@ impl Bin {
     /// # Examples
     ///
     /// ```
-    /// use streamhist::Bin;
+    /// use histr::Bin;
     ///
     /// let bin = &Bin::new(42.0, 2);
     /// let (mean, count): (f64, u64) = bin.into();
@@ -48,7 +48,7 @@ impl From<f64> for Bin {
     /// # Examples
     ///
     /// ```
-    /// use streamhist::Bin;
+    /// use histr::Bin;
     ///
     /// let bin = &Bin::from(3.14);
     /// let (mean, count): (f64, u64) = bin.into();
@@ -66,7 +66,7 @@ impl From<&Bin> for (f64, u64) {
     /// # Examples
     ///
     /// ```
-    /// use streamhist::Bin;
+    /// use histr::Bin;
     ///
     /// let bin = Bin::new(3.14, 5);
     /// assert_eq!(<(f64, u64)>::from(&bin), (3.14, 5));
@@ -75,8 +75,8 @@ impl From<&Bin> for (f64, u64) {
     /// Use case example.
     ///
     /// ```
-    /// use streamhist::Bin;
-    /// use streamhist::StreamHist;
+    /// use histr::Bin;
+    /// use histr::StreamHist;
     ///
     /// let hist = StreamHist::from(vec![1.0, 2.0, 3.0, 4.0, 5.0]);
     ///
@@ -103,7 +103,7 @@ impl PartialEq for Bin {
 /// # Examples
 ///
 /// ```
-/// use streamhist::Bin;
+/// use histr::Bin;
 ///
 /// // the counts are ignored
 /// assert!(Bin::new(3.14, 1) == Bin::new(3.14, 2));
@@ -142,7 +142,7 @@ impl ops::Add<Bin> for Bin {
     /// # Examples
     ///
     /// ```
-    /// use streamhist::Bin;
+    /// use histr::Bin;
     ///
     /// // (1 * 2 + 2 * 3) / (2 + 3) = 8 / 5 = 1.6
     /// assert_eq!(Bin::new(1.0, 2) + Bin::new(2.0, 3), Bin::new(1.6, 5));

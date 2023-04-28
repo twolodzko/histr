@@ -1,10 +1,10 @@
 [package]
-name = "streamhist"
+name = "histr"
 version = "0.1.0"
 edition = "2021"
 authors = ["Tymoteusz Wolodzko"]
 description = "Implementation of streaming histograms as described in the A Streaming Parallel Decision Tree Algorithm paper by Ben-Haim and Tom-Tov (2010)."
-repository = "https://github.com/twolodzko/streamhist"
+repository = "https://github.com/twolodzko/histr"
 exclude = ["/data"]
 license = "MIT"
 
@@ -30,12 +30,12 @@ strip = "symbols"
 lto = true
 
 [lib]
-name = "streamhist"
+name = "histr"
 
 [features]
 build-binary = ["dep:clap", "dep:float-pretty-print"]
 
 [[bin]]
 # see: https://stackoverflow.com/a/46017284/3986320
-name = "streamhist"
+name = "histr"
 required-features = ["build-binary"]

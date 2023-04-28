@@ -25,7 +25,7 @@ impl StreamHist {
     /// # Examples
     ///
     /// ```
-    /// use streamhist::StreamHist;
+    /// use histr::StreamHist;
     ///
     /// let mut hist = StreamHist::with_capacity(5);
     ///
@@ -57,7 +57,7 @@ impl StreamHist {
     /// # Examples
     ///
     /// ```
-    /// use streamhist::StreamHist;
+    /// use histr::StreamHist;
     ///
     /// let mut hist = StreamHist::from(vec![1.0, 2.0, 3.0, 4.0, 5.0]);
     /// assert_eq!(hist.size, 5);
@@ -87,7 +87,7 @@ impl StreamHist {
     /// # Examples
     ///
     /// ```
-    /// use streamhist::StreamHist;
+    /// use histr::StreamHist;
     ///
     /// let mut hist = StreamHist::with_capacity(5);
     /// hist.insert(1.0);
@@ -141,7 +141,7 @@ impl StreamHist {
     /// # Examples
     ///
     /// ```
-    /// use streamhist::StreamHist;
+    /// use histr::StreamHist;
     ///
     /// let mut hist = StreamHist::with_capacity(10);
     /// assert!(hist.is_empty());
@@ -198,7 +198,7 @@ impl StreamHist {
     /// # Examples
     ///
     /// ```
-    /// use streamhist::StreamHist;
+    /// use histr::StreamHist;
     ///
     /// let mut hist = StreamHist::with_capacity(10);
     /// assert_eq!(hist.count(), 0.0);
@@ -222,7 +222,7 @@ impl StreamHist {
     /// # Examples
     ///
     /// ```
-    /// use streamhist::StreamHist;
+    /// use histr::StreamHist;
     ///
     /// let mut hist1 = StreamHist::from(vec![1.0, 3.0, 5.0]);
     /// let hist2 = StreamHist::from(vec![2.0, 4.0, 6.0]);
@@ -247,7 +247,7 @@ impl StreamHist {
     /// # Examples
     ///
     /// ```
-    /// use streamhist::StreamHist;
+    /// use histr::StreamHist;
     ///
     /// let mut hist = StreamHist::from(vec![2.0, 1.0, 1.0, 3.0]);
     /// hist.resize(3);
@@ -305,7 +305,7 @@ impl Default for StreamHist {
     /// # Examples
     ///
     /// ```
-    /// use streamhist::StreamHist;
+    /// use histr::StreamHist;
     ///
     /// let hist = StreamHist::default();
     /// assert!(hist.is_empty());

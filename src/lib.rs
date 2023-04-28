@@ -6,8 +6,8 @@
 //! # Examples
 //!
 //! ```
-//! use streamhist::StreamHist;
-//! use streamhist::KernelDensity;
+//! use histr::StreamHist;
+//! use histr::KernelDensity;
 //!
 //! // initialize a histogram with 10 bins
 //! let mut hist = StreamHist::with_capacity(10);

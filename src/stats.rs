@@ -11,8 +11,8 @@ impl StreamHist {
     /// # Examples
     ///
     /// ```
-    /// use streamhist::StreamHist;
-    /// use streamhist::Bin;
+    /// use histr::StreamHist;
+    /// use histr::Bin;
     ///
     /// // Using this data example: https://www.investopedia.com/terms/w/weightedaverage.asp
     /// let hist = StreamHist::from(vec![Bin::new(10.0, 2), Bin::new(50.0, 5), Bin::new(40.0, 3)]);
@@ -37,8 +37,8 @@ impl StreamHist {
     /// # Examples
     ///
     /// ```
-    /// use streamhist::StreamHist;
-    /// use streamhist::Bin;
+    /// use histr::StreamHist;
+    /// use histr::Bin;
     ///
     /// // Using this data example: https://www.investopedia.com/terms/w/weightedaverage.asp
     /// let hist = StreamHist::from(vec![Bin::new(10.0, 2), Bin::new(50.0, 5), Bin::new(40.0, 3)]);
@@ -108,7 +108,7 @@ impl StreamHist {
     /// # Examples
     ///
     /// ```
-    /// use streamhist::StreamHist;
+    /// use histr::StreamHist;
     ///
     /// let hist = StreamHist::from(vec![1.0, 2.0, 3.0, 4.0, 5.0]);
     /// assert_eq!(hist.cdf(3.0), 0.5);
@@ -131,7 +131,7 @@ impl StreamHist {
     /// # Examples
     ///
     /// ```
-    /// use streamhist::StreamHist;
+    /// use histr::StreamHist;
     ///
     /// let hist = StreamHist::from(vec![1.0, 2.0, 3.0, 4.0, 5.0]);
     /// assert_eq!(hist.quantile(0.5), 3.0);
@@ -210,7 +210,7 @@ impl StreamHist {
     /// # Examples
     ///
     /// ```
-    /// use streamhist::StreamHist;
+    /// use histr::StreamHist;
     ///
     /// let hist = StreamHist::from(vec![1.0, 2.0, 3.0, 4.0, 5.0]);
     /// assert_eq!(hist.median(), 3.0);
