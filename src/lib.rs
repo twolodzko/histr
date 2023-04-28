@@ -1,6 +1,8 @@
 //! Implementation of streaming histograms as described in the
 //! [*A Streaming Parallel Decision Tree Algorithm* by Ben-Haim and Tom-Tov (2010)][paper].
 //!
+//! `histr` is pronounced like "history" and is a mix of the words *hist*orgram and *str*eaming.
+//!
 //! [paper]: https://jmlr.csail.mit.edu/papers/v11/ben-haim10a.html
 //!
 //! # Examples
