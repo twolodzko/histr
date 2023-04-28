@@ -99,19 +99,21 @@ println!("{}", hist.to_json());
 
 ## Other implementations
 
-Similar implementations are also available in [Python], [Python (again)], [Go], [Go (again)], [Java/Clojure], [C],
-[Rust], etc but they vary in maturity and features, and some do not implement the approach described by
-Yael Ben-Haim and Elad Tom-Tov (2010) or diverge from it.
+Similar implementations are also available in [carsonfarmer/streamhist] (Python), [maki-nage/distogram] (Python),
+[VividCortex/gohistogram] (Go), [aaw/histosketch] (Go), [bigmlcom/histogram] (Java/Clojure), [aaw/histk] (C),
+[malor/bhtt] (Rust), [jettify/streamhist] (Rust), etc. They vary in maturity and features, and some do not implement
+the approach described by Yael Ben-Haim and Elad Tom-Tov (2010) or diverge from it.
 
 
  [A Streaming Parallel Decision Tree Algorithm]: https://jmlr.csail.mit.edu/papers/v11/ben-haim10a.html
- [Python]: https://github.com/carsonfarmer/streamhist
- [Python (again)]: https://github.com/maki-nage/distogram
- [Rust]: https://github.com/malor/bhtt
- [C]: https://github.com/aaw/histk
- [Java/Clojure]: https://github.com/bigmlcom/histogram
- [Go]: https://github.com/VividCortex/gohistogram
- [Go (again)]: https://github.com/aaw/histosketch
+ [carsonfarmer/streamhist]: https://github.com/carsonfarmer/streamhist
+ [maki-nage/distogram]: https://github.com/maki-nage/distogram
+ [malor/bhtt]: https://github.com/malor/bhtt
+ [jettify/streamhist]: https://github.com/jettify/streamhist
+ [aaw/histk]: https://github.com/aaw/histk
+ [bigmlcom/histogram]: https://github.com/bigmlcom/histogram
+ [VividCortex/gohistogram]: https://github.com/VividCortex/gohistogram
+ [aaw/histosketch]: https://github.com/aaw/histosketch
  [weighted mean]: https://en.wikipedia.org/wiki/Weighted_arithmetic_mean
  [variance]: https://en.wikipedia.org/wiki/Weighted_arithmetic_mean#Weighted_sample_variance
  [trapezoidal rule]: https://en.wikipedia.org/wiki/Trapezoidal_rule
