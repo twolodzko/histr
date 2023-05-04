@@ -65,6 +65,18 @@ mean    count
 Instead of piping, the file could be passed directly as `histr examples/old_faithful.tsv`, but then we would see
 a warning printed to the standard error saying that parsing the first line (column name) failed.
 
+It can be used with other command line programs, for example, to estimate the histogram of response times from ping.
+
+```shell
+$ ping google.com -c 20 | sed -n 's/.*time=\([0-9.]*\).*/\1/p' | histr -b 5
+mean    count
+8.965000 2  ■■
+10.13000 10 ■■■■■■■■■■
+11.20000 3  ■■■
+13.22500 4  ■■■■
+18.00000 1  ■
+```
+
 More details can be found in `histr -h` and some usage examples can be executed using the [Justfile] in this
 repository with `just examples`.
 

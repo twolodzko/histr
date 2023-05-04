@@ -3,11 +3,21 @@ name: Rust
 on:
   push:
     branches: [ "main" ]
+    paths:
+      - '**.rs'
+      - 'Cargo.toml'
   pull_request:
     branches: [ "main" ]
+    paths:
+      - '**.rs'
+      - 'Cargo.toml'
 
 env:
   CARGO_TERM_COLOR: always
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -16,9 +26,15 @@ jobs:
       matrix:
         os: [ ubuntu, macos, windows ]
     runs-on: ${{ matrix.os }}-latest
+    timeout-minutes: 10
 
     steps:
     - uses: actions/checkout@v3
     - uses: extractions/setup-just@v1
-    - name: Run tests
-      run: just test
+    - uses: actions/cache@v3
+      with:
+        path: |
+          ~/.cargo
+        key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.toml') }}
+        restore-keys: ${{ runner.os }}-cargo-
+    - run: just test
