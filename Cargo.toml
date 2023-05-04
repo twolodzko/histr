@@ -5,7 +5,7 @@ edition = "2021"
 authors = ["Tymoteusz Wolodzko"]
 description = "Implementation of streaming histograms as described in the A Streaming Parallel Decision Tree Algorithm paper by Ben-Haim and Tom-Tov (2010)."
 repository = "https://github.com/twolodzko/histr"
-exclude = ["/data"]
+exclude = ["/data", "/.github"]
 license = "MIT"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
