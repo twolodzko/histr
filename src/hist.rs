@@ -158,7 +158,7 @@ impl StreamHist {
     ///
     /// # Panics
     ///
-    /// It panics when `value` is `f64::NAN`.
+    /// It panics when the `value` is `f64::NAN`.
     #[inline]
     pub(crate) fn partition_point(&self, value: f64) -> usize {
         assert!(!value.is_nan(), "{value} is not a number");
