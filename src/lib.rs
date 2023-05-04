@@ -40,7 +40,7 @@ pub use self::bins::Bin;
 pub use self::density::{bandwidth, KernelDensity};
 pub use self::hist::StreamHist;
 
-/// Check if a slice is sorted
+/// Check if slice is sorted
 fn is_sorted<T>(slice: &[T]) -> bool
 where
     T: Ord,

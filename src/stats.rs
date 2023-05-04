@@ -68,7 +68,7 @@ impl StreamHist {
     ///
     /// # NaN propagation
     ///
-    /// If `value` is `f64::NAN`, it will return `f64::NAN`.
+    /// If the `value` is `f64::NAN`, it will return `f64::NAN`.
     pub fn count_by(&self, value: f64) -> f64 {
         if value.is_nan() {
             return f64::NAN;
@@ -103,7 +103,7 @@ impl StreamHist {
     ///
     /// # NaN propagation
     ///
-    /// If `value` is `f64::NAN`, it will return `f64::NAN`.
+    /// If the `value` is `f64::NAN`, it will return `f64::NAN`.
     ///
     /// # Examples
     ///
