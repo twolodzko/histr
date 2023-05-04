@@ -109,6 +109,13 @@ println!("f({}) = {}", 3.14, kde.density(3.14));
 println!("{}", hist.to_json());
 ```
 
+To use it, [specify it in `Cargo.toml`] as:
+
+```toml
+[dependencies]
+histr = { git = "https://github.com/twolodzko/histr.git" }
+```
+
 ## Other implementations
 
 Similar implementations are also available in [carsonfarmer/streamhist] (Python), [maki-nage/distogram] (Python),
@@ -133,3 +140,4 @@ the approach described by Yael Ben-Haim and Elad Tom-Tov (2010) or diverge from 
  [kernel]: https://en.wikipedia.org/wiki/Kernel_(statistics)
  [bandwidth]: https://stats.stackexchange.com/a/226239/35989
  [Justfile]: https://github.com/casey/just
+ [specify it in `Cargo.toml`]: https://doc.rust-lang.org/cargo/reference/specifying-dependencies.html
