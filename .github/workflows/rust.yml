@@ -6,11 +6,13 @@ on:
     paths:
       - '**.rs'
       - 'Cargo.toml'
+      - '.github/workflows/*.yml'
   pull_request:
     branches: [ "main" ]
     paths:
       - '**.rs'
       - 'Cargo.toml'
+      - '.github/workflows/*.yml'
 
 env:
   CARGO_TERM_COLOR: always
@@ -35,6 +37,7 @@ jobs:
       with:
         path: |
           ~/.cargo
+          target
         key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.toml') }}
         restore-keys: ${{ runner.os }}-cargo-
     - run: just test
