@@ -7,12 +7,14 @@ on:
       - '**.rs'
       - 'Cargo.toml'
       - '.github/workflows/*.yml'
+      - 'Justfile'
   pull_request:
     branches: [ "main" ]
     paths:
       - '**.rs'
       - 'Cargo.toml'
       - '.github/workflows/*.yml'
+      - 'Justfile'
 
 env:
   CARGO_TERM_COLOR: always
