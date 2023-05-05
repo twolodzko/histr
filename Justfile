@@ -23,7 +23,6 @@ lib:
 	cargo build --release --lib
 
 # Build the command line application
-[unix]
 binary:
 	cargo build --release --bin histr {{flags}}
 	cp ./target/release/{{binary-file}} .
