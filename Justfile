@@ -22,6 +22,7 @@ clean:
 lib:
 	cargo build --release --lib
 
+# Build the binary
 build-bin:
 	cargo build --release --bin histr {{flags}}
 
@@ -47,6 +48,7 @@ lines:
 	@ find . -type f -name "*.rs" -exec awk '1;/#[cfg\(test\)]/{exit}' {} \; | grep . | wc -l
 
 # Run the examples
+[unix]
 examples: binary
 	#!/usr/bin/env bash
 	set -euo pipefail # fail fast
