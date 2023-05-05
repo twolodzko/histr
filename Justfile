@@ -15,7 +15,7 @@ lint:
 
 # Cleanup the build files
 clean:
-	rm -rf {{binary-file}}
+	rm -rf ./{{binary-file}}
 	rm -rf ./target/
 
 # Build the Rust crate
