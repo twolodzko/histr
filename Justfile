@@ -22,18 +22,11 @@ clean:
 lib:
 	cargo build --release --lib
 
-# Build the binary
-build-bin:
-	cargo build --release --bin histr {{flags}}
-
 # Build the command line application
 [unix]
-binary: build-bin
+binary:
+	cargo build --release --bin histr {{flags}}
 	cp ./target/release/histr {{binary-file}}
-
-[windows]
-binary: build-bin
-	cp ./target/release/histr.exe {{binary-file}}
 
 # Install the package locally
 install:
