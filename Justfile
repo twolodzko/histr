@@ -76,3 +76,7 @@ examples: binary
 	# Read and resize the saved histogram
 	./{{binary-file}} -ir -b 10 -l $tempdir/hist.msgpack
 	rm -rf $tempdir
+
+[windows]
+examples:
+	@echo "Sorry, no examples for Windows for now."
