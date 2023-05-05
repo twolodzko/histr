@@ -1,5 +1,5 @@
 
-binary-file := "histr"
+binary-file := "histr" + if os() == "windows" { ".exe" } else { "" }
 flags := "--features build-binary"
 
 # Run linter and all the tests
@@ -15,7 +15,6 @@ lint:
 
 # Cleanup the build files
 clean:
-	rm -rf ./{{binary-file}}
 	rm -rf ./target/
 
 # Build the Rust crate
@@ -26,7 +25,7 @@ lib:
 [unix]
 binary:
 	cargo build --release --bin histr {{flags}}
-	cp ./target/release/histr {{binary-file}}
+	cp ./target/release/{{binary-file}} .
 
 # Install the package locally
 install:
