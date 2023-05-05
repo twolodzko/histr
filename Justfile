@@ -18,7 +18,7 @@ clean:
 	rm -rf ./{{binary-file}}
 	rm -rf ./target/
 
-# Build the release binary
+# Build the Rust crate
 lib:
 	cargo build --release --lib
 
