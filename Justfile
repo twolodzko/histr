@@ -3,11 +3,14 @@ binary-file := "histr" + if os() == "windows" { ".exe" } else { "" }
 flags := "--features build-binary"
 
 # Run linter and all the tests
-test: lint unit-test examples
+test: lint unit-test integration-test examples
 
 # Run unit tests
 unit-test:
 	cargo test {{flags}}
+
+integration-test: binary
+	bats ./test.bats
 
 # Run the linter
 lint:

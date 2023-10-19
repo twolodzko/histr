@@ -111,6 +111,7 @@ impl PartialEq for Bin {
 impl Eq for Bin {}
 
 impl PartialOrd for Bin {
+    #[allow(clippy::incorrect_partial_ord_impl_on_ord_type)]
     /// Compare the means of the bins.
     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
         self.mean.partial_cmp(&other.mean)
